@@ -6,7 +6,6 @@ services:
       context: ./
       dockerfile: docker/Dockerfile
     container_name: app
-    image: go-hamed:latest
     networks:
       - goforum_network
     depends_on:
