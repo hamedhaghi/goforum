@@ -16,6 +16,10 @@ import (
 )
 
 func Run(c *config.Config) {
+	if c == nil {
+		log.Fatal("Config is nil")
+		return
+	}
 	threadService := services.NewThreadService(c.Storage)
 	postService := services.NewPostService(c.Storage)
 	commentService := services.NewCommentService(c.Storage)

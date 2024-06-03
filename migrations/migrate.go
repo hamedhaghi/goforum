@@ -14,8 +14,10 @@ import (
 )
 
 func main() {
-
 	storage := config.GetConfig().Storage
+	if storage == nil {
+		log.Fatal("Storage is nil")
+	}
 	storage.Migrator().DropTable(
 		&models.Thread{},
 		&models.Post{},

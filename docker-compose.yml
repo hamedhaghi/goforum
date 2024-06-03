@@ -8,8 +8,8 @@ services:
     container_name: app
     networks:
       - goforum_network
-    depends_on:
-      - mariadb
+    volumes:
+      - ./:/app
   nginx:
     image: nginx
     container_name: nginx
@@ -22,35 +22,6 @@ services:
       - goforum_network
     depends_on:
       - app
-  mariadb:
-    image: mariadb
-    container_name: mariadb
-    restart: always
-    environment:
-      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1
-      - MARIADB_USER=${DB_USER}
-      - MARIADB_DATABASE=${DB_NAME}
-      - MARIADB_PASSWORD=${DB_PASSWORD}
-    ports:
-      - ${DB_PORT:-3306}:3306
-    volumes:
-      - forum_data:/var/lib/mysql
-    networks:
-      - goforum_network
-  phpmyadmin:
-    image: phpmyadmin
-    container_name: phpmyadmin
-    restart: always
-    environment:
-      - PMA_HOST=mariadb
-    ports:
-      - ${PMA_PORT:-8080}:80
-    depends_on:
-      - mariadb
-    networks:
-      - goforum_network
-volumes:
-  forum_data:
 
 networks:
   goforum_network:

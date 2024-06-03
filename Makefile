@@ -1,6 +1,4 @@
-include .env
-
-db="${DB_DRIVER}://${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:${DB_PORT})/${DB_NAME}"
+.PHONY: up up-s down lint migrate shell test
 
 up:
 	docker-compose up -d --build
@@ -15,7 +13,13 @@ lint:
 	@docker-compose exec -it app golangci-lint run
 
 migrate:
-	@go run migrations/migrate.go 
+	@docker-compose exec -it app go run migrations/migrate.go 
+
+shell:
+	@docker-compose exec -it app sh
+
+test:
+	@go test ./...
 
 
 
