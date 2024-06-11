@@ -2,14 +2,16 @@ module github.com/hamedhaghi/goforum
 
 go 1.21.5
 
-require gorm.io/driver/mysql v1.5.2
+require (
+	github.com/go-chi/cors v1.2.1
+	github.com/go-chi/httprate v0.8.0
+	gorm.io/driver/mysql v1.5.2
+)
 
 require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/glebarez/go-sqlite v1.21.2 // indirect
-	github.com/go-chi/cors v1.2.1 // indirect
-	github.com/go-chi/httprate v0.8.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect

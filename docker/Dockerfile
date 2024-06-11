@@ -6,9 +6,7 @@ RUN apk update && apk upgrade
 
 RUN apk --no-cache add curl
 
-RUN go install github.com/mitranim/gow@latest
-
-RUN go install github.com/vektra/mockery/cmd/mockery@latest
+RUN go install github.com/pilu/fresh@latest
 
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.55.2
 
@@ -18,4 +16,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["gow", "run", "main.go"]
+CMD ["fresh"]

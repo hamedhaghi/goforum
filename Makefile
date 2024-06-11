@@ -1,27 +1,22 @@
-.PHONY: up up-s down lint migrate shell test
+.PHONY: *
+
+db=./database/forum.db
+app=app
 
 up:
-	docker-compose up -d --build
-
-up-s:
-	@docker-compose up -d --build > /dev/null 2>&1
+	mkdir -p $(dir $(db)) && \
+	touch $(db) && \
+	docker compose build --no-cache && \
+	docker compose up -d && \
+	$(MAKE) migrate
+	docker compose logs -f
 
 down:
-	docker-compose down
-
-lint:
-	@docker-compose exec -it app golangci-lint run
+	rm -rf $(db) && \
+	docker compose down
 
 migrate:
-	@docker-compose exec -it app go run migrations/migrate.go 
+	docker compose exec $(app) go run migrations/migrate.go 
 
 shell:
-	@docker-compose exec -it app sh
-
-test:
-	@go test ./...
-
-
-
-		
-			
+	docker compose exec -it $(app) sh
